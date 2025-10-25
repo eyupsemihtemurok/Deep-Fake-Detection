@@ -16,6 +16,7 @@ const App = () => {
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/hakkımızda" element={<Hakkında />} />
             <Route path="/history" element={<History />} />
             <Route path="/twitter" element={<Twitter />} />
             <Route path="/video-library" element={<VideoLibrary />} />
