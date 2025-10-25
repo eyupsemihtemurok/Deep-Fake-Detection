@@ -13,7 +13,7 @@ export const up = async () => {
           title NVARCHAR(255) NOT NULL,
           thumbnail_url NVARCHAR(500),
           video_url NVARCHAR(500) NOT NULL,
-          is_deepfake BIT NOT NULL,
+          is_deepfake BIT NULL,
           confidence_score FLOAT,
           created_at DATETIME DEFAULT GETDATE()
         )

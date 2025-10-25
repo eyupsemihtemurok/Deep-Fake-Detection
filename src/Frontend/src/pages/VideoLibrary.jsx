@@ -7,6 +7,7 @@ const VideoLibrary = () => {
   const [analyzing, setAnalyzing] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [analysisResults, setAnalysisResults] = useState(null);
+  const [aiModelActive, setAiModelActive] = useState(false); // AI model durumu
   
   // Sayfalama state'leri
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +49,13 @@ const VideoLibrary = () => {
       if (data.success) {
         alert(`✅ ${data.message}`);
         setCurrentPage(1); // İlk sayfaya dön
-        loadVideos(1);
+        setAnalysisResults(null); // Önceki analiz sonuçlarını temizle
+        await loadVideos(1);
+        
+        // Eğer AI model aktifse, videoları otomatik analiz et
+        if (aiModelActive) {
+          await analyzeAllVideos();
+        }
       }
     } catch (error) {
       console.error('Local videolar yüklenirken hata:', error);
@@ -58,9 +65,22 @@ const VideoLibrary = () => {
     }
   };
 
+  const toggleAiModel = () => {
+    setAiModelActive(!aiModelActive);
+    if (!aiModelActive) {
+      alert('✅ AI Model Aktif Edildi - Yeni yüklenen videolar otomatik analiz edilecek');
+    } else {
+      alert('⏸️ AI Model Pasif Edildi - Videolar analiz edilmeyecek');
+    }
+  };
+
   const analyzeAllVideos = async () => {
+    if (!aiModelActive) {
+      alert('⚠️ AI model pasif! Önce AI modeli aktif edin.');
+      return;
+    }
+    
     setAnalyzing(true);
-    setShowDropdown(false);
     
     try {
       const response = await fetch('http://localhost:3000/api/video-library/analyze-all', {
@@ -70,10 +90,10 @@ const VideoLibrary = () => {
       
       if (data.success) {
         setAnalysisResults(data.results);
-        setShowDropdown(true);
         
         // Mevcut sayfayı yeniden yükle
-        loadVideos(currentPage);
+        await loadVideos(currentPage);
+        alert('✅ Analiz tamamlandı!');
       }
     } catch (error) {
       console.error('Analiz sırasında hata:', error);
@@ -90,82 +110,109 @@ const VideoLibrary = () => {
   };
 
   const getVideoBackgroundColor = (video) => {
-    if (video.is_deepfake === null) return 'transparent';
+    // Analiz edilmemişse gri arka plan
+    if (video.is_deepfake === null) return 'rgba(128, 128, 128, 0.15)';
     return video.is_deepfake ? 'rgba(255, 71, 87, 0.2)' : 'rgba(46, 213, 115, 0.2)';
   };
 
   const getVideoBorderColor = (video) => {
-    if (video.is_deepfake === null) return 'rgba(255, 255, 255, 0.1)';
+    // Analiz edilmemişse gri çerçeve
+    if (video.is_deepfake === null) return 'rgba(128, 128, 128, 0.3)';
     return video.is_deepfake ? '#ff4757' : '#2ed573';
   };
 
   return (
     <div className="video-library-container">
-      {/* AI Dropdown */}
-      <div className="ai-controls">
-        <button 
-          className="ai-dropdown-btn"
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          🤖 AI Analiz ▼
-        </button>
-        
-        {showDropdown && (
-          <div className="ai-dropdown-content">
-            <div className="dropdown-header">
-              <h3>AI Deepfake Tespiti</h3>
-              <button className="close-dropdown" onClick={() => setShowDropdown(false)}>✕</button>
-            </div>
-            
-            <button 
-              className="analyze-btn"
-              onClick={analyzeAllVideos}
-              disabled={analyzing || videos.length === 0}
-            >
-              {analyzing ? '🔄 Analiz Ediliyor...' : '🚀 Modeli Aktif/Pasif Et'}
-            </button>
-
-            {analysisResults && (
-              <div className="analysis-results">
-                <h4>📊 Analiz Sonuçları:</h4>
-                <div className="results-list">
-                  {analysisResults.map((result, index) => (
-                    <div 
-                      key={result.video_id} 
-                      className={`result-item ${result.is_deepfake ? 'fake' : 'real'}`}
-                    >
-                      <span className="video-number">Video {index + 1}</span>
-                      <span className="result-label">
-                        {result.is_deepfake ? '🔴 DEEPFAKE' : '🟢 GERÇEK'}
-                      </span>
-                      <span className="confidence">
-                        %{result.confidence_score?.toFixed(2) || 'N/A'}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+      {/* AI Analiz ve Action Buttons - Tek Satır */}
+      <div className="controls-row">
+        <div className="ai-controls">
+          <button 
+            className={`ai-dropdown-btn ${aiModelActive ? 'active' : 'inactive'}`}
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <span className="ai-icon">⚡</span>
+            <span className="ai-text">AI Analiz</span>
+            <span className={`status-dot ${aiModelActive ? 'active' : 'inactive'}`}></span>
+          </button>
+          
+          {showDropdown && (
+            <div className="ai-dropdown-content">
+              <div className="dropdown-header">
+                <h3>AI Deepfake Tespiti</h3>
+                <button className="close-dropdown" onClick={() => setShowDropdown(false)}>✕</button>
               </div>
-            )}
-          </div>
-        )}
-      </div>
+              
+              {/* Model Durumu - Tıklanabilir */}
+              <div className="model-status-section">
+                <div className="section-title">Model Durumu:</div>
+                <button 
+                  className={`model-status-toggle ${aiModelActive ? 'active' : 'inactive'}`}
+                  onClick={toggleAiModel}
+                >
+                  {aiModelActive ? '🟢 AKTİF' : '🔴 PASİF'}
+                </button>
+              </div>
 
-      {/* Action Buttons */}
-      <div className="action-buttons">
-        <button onClick={loadLocalVideos} disabled={loading} className="load-btn">
-          {loading ? '⏳ Yükleniyor...' : '📂 Local Videoları Yükle'}
-        </button>
-        <button onClick={() => loadVideos(currentPage)} disabled={loading} className="refresh-btn">
-          🔄 Yenile
-        </button>
+              {/* Analiz Sonuçları */}
+              <div className="analysis-results-section">
+                <div className="section-title">Analiz Sonuçları:</div>
+                {analysisResults && analysisResults.length > 0 ? (
+                  <div className="results-list">
+                    {analysisResults.map((result, index) => (
+                      <div 
+                        key={result.video_id} 
+                        className={`result-item ${result.is_deepfake ? 'fake' : 'real'}`}
+                      >
+                        <span className="video-label">Video {index + 1}:</span>
+                        <span className="result-status">
+                          {result.is_deepfake ? '🔴 Deepfake' : '🟢 Orjinal'}
+                        </span>
+                        <span className="confidence-value">
+                          (%{result.confidence_score?.toFixed(1) || 'N/A'})
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="no-results">
+                    <p>Henüz analiz yapılmadı</p>
+                    {aiModelActive && videos.length > 0 && (
+                      <button 
+                        className="analyze-trigger-btn"
+                        onClick={analyzeAllVideos}
+                        disabled={analyzing}
+                      >
+                        {analyzing ? '🔄 Analiz Ediliyor...' : '🚀 Analiz Et'}
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="action-buttons">
+          <button onClick={loadLocalVideos} disabled={loading} className="load-btn">
+            {loading ? '⏳ Yükleniyor...' : '📂 Local Videoları Yükle'}
+          </button>
+          <button 
+            onClick={() => loadVideos(currentPage)} 
+            disabled={loading} 
+            className="refresh-btn"
+            title="Yenile"
+          >
+            🔄
+          </button>
+        </div>
       </div>
 
       {/* Pagination Info */}
       {totalVideos > 0 && (
         <div className="pagination-info">
           <p>
-            Toplam <strong>{totalVideos}</strong> video bulundu 
-            ({videos.filter(v => !v.is_deepfake).length} gerçek, {videos.filter(v => v.is_deepfake).length} deepfake)
+            Toplam <strong>{totalVideos}</strong> video bulundu
           </p>
           <p>
             Sayfa <strong>{currentPage}</strong> / <strong>{totalPages}</strong>
@@ -211,7 +258,7 @@ const VideoLibrary = () => {
               <div className="video-info">
                 <h3 className="video-title">{video.title}</h3>
                 
-                {video.is_deepfake !== null && (
+                {video.is_deepfake !== null ? (
                   <div className="analysis-badge">
                     <div className={`status-indicator ${video.is_deepfake ? 'fake' : 'real'}`}>
                       {video.is_deepfake ? '🔴 DEEPFAKE' : '🟢 ORJİNAL'}
@@ -221,6 +268,12 @@ const VideoLibrary = () => {
                         Güven: %{video.confidence_score.toFixed(2)}
                       </div>
                     )}
+                  </div>
+                ) : (
+                  <div className="analysis-badge">
+                    <div className="status-indicator pending">
+                      ⚪ ANALİZ BEKLİYOR
+                    </div>
                   </div>
                 )}
               </div>
