@@ -1,28 +1,35 @@
 .sidebar {
-  width: 220px;
+  width: 240px;
   min-height: 100vh;
-  background-color: rgba(30, 30, 30, 0.95); /* VS Code dark tema havası */
-  padding: 20px;
+  background-color: #1e1e2f; /* koyu mor-esintili arkaplan */
+  padding: 25px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  color: #d4d4d4; /* VS Code metin rengi */
-  font-family: "Consolas", "Courier New", monospace; /* VS Code fontu */
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.6); /* hafif gölge efekti */
-  transition: all 0.2s ease;
+  gap: 30px;
+  color: #fff;
+  font-family: 'Consolas', 'Courier New', monospace;
+  position: relative;
+  border-right: 2px solid #ff4de1; /* neon kenar */
+  box-shadow: 5px 0 15px rgba(255,77,225,0.3);
 }
 
 .sidebar-title {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 900;
   text-align: center;
-  margin-bottom: 20px;
-  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  background: linear-gradient(90deg, #ff4de1, #00ffff, #ff4de1);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 3s ease infinite;
+  letter-spacing: 2px;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .sidebar-menu {
@@ -31,17 +38,46 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .sidebar-item {
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.sidebar-item:hover {
-  background: linear-gradient(90deg, #ff8a00, #e52e71);
-  transform: translateX(5px);
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #ff4de1, #00ffff, #ff4de1);
+  transition: all 0.3s ease;
+  z-index: 0;
+  opacity: 0.5;
+  filter: blur(8px);
+}
+
+.sidebar-item:hover::before {
+  left: 0;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  z-index: 1;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.sidebar-item:hover .sidebar-link {
+  color: #ff4de1;
+  text-shadow: 0 0 10px #ff4de1, 0 0 20px #00ffff;
 }
