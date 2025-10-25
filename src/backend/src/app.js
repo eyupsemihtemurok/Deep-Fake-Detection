@@ -3,6 +3,7 @@ import cors from 'cors';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import testRoutes from './routes/testRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
@@ -40,12 +41,14 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       tests: '/api/tests',
+      auth: '/api/auth',
       swagger: '/api-docs'
     }
   });
 });
 
 app.use('/api/tests', testRoutes);
+app.use('/api/auth', authRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

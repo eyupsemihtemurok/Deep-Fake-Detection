@@ -33,6 +33,17 @@ src/
 
 ## 📡 API Endpoints
 
+### 🔐 Authentication
+
+| Method | URL | Açıklama |
+|--------|-----|----------|
+| POST | `/api/auth/register` | Yeni kullanıcı kaydı |
+| POST | `/api/auth/login` | Kullanıcı girişi |
+| GET | `/api/auth/me` | Kullanıcı profili (Token gerekli) |
+| POST | `/api/auth/verify` | Token doğrulama |
+
+### 📝 Tests
+
 | Method | URL | Açıklama |
 |--------|-----|----------|
 | GET | `/api/tests` | Tüm testleri listele |
@@ -42,6 +53,35 @@ src/
 | DELETE | `/api/tests/:id` | Test sil |
 
 ### Örnek Kullanım
+
+**Kayıt Ol:**
+```
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Giriş Yap:**
+```
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+```
+
+**Profil Getir (Token ile):**
+```
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer YOUR_TOKEN_HERE
+```
 
 **Tüm testleri getir:**
 ```

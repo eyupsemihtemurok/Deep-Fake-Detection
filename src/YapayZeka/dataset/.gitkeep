@@ -1,0 +1,2 @@
+# Bu dosya dataset klasörünün Git'te görünmesini sağlar
+# Dataset içindeki tüm dosyalar .gitignore tarafından ignore edilir
