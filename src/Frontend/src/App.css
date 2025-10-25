@@ -1,8 +1,18 @@
 .app-container {
   display: flex;
   min-height: 100vh;
+  margin: auto;
   background: #1e1e1e; /* Koyu arka plan */
   color: #fff;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {

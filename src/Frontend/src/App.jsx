@@ -1,14 +1,23 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./pages/sidebar";
 import Main from "./pages/main";
-import "./App.css"; 
+import History from "./pages/history";
+import "./App.css";
 
 const App = () => {
   return (
-    <div className="app-container">
-      <Sidebar />
-      <Main />
-    </div>
+    <Router>
+      <div className="app-container">
+        <Sidebar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/history" element={<History />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 };
 
