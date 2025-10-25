@@ -5,7 +5,6 @@ const VideoLibrary = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
-  const [aiActive, setAiActive] = useState(false); // AI aktif/pasif durumu
   const [showDropdown, setShowDropdown] = useState(false);
   const [analysisResults, setAnalysisResults] = useState(null);
   
@@ -50,11 +49,6 @@ const VideoLibrary = () => {
         alert(`✅ ${data.message}`);
         setCurrentPage(1); // İlk sayfaya dön
         loadVideos(1);
-        
-        // AI aktifse otomatik analiz et
-        if (aiActive) {
-          setTimeout(() => analyzeAllVideos(), 500);
-        }
       }
     } catch (error) {
       console.error('Local videolar yüklenirken hata:', error);
