@@ -140,7 +140,7 @@ const runMigrations = async () => {
           title NVARCHAR(255) NOT NULL,
           thumbnail_url NVARCHAR(500),
           video_url NVARCHAR(500) NOT NULL,
-          is_deepfake BIT NOT NULL,
+          is_deepfake BIT NULL,
           confidence_score FLOAT,
           created_at DATETIME DEFAULT GETDATE()
         )
@@ -187,6 +187,17 @@ const runMigrations = async () => {
       END
     `);
     console.log('✅ AnalysisLogs tablosu oluşturuldu\n');
+
+    // Migration 8: TestVideos tablosunu güncelle - is_deepfake NULL kabul etsin
+    console.log('📝 Migration 008: TestVideos kolonu güncelleniyor...');
+    await targetPool.request().query(`
+      IF EXISTS (SELECT * FROM sysobjects WHERE name='TestVideos' AND xtype='U')
+      BEGIN
+        ALTER TABLE TestVideos
+        ALTER COLUMN is_deepfake BIT NULL
+      END
+    `);
+    console.log('✅ TestVideos is_deepfake kolonu NULL kabul ediyor\n');
 
     // Verileri kontrol et
     const result = await targetPool.request().query('SELECT * FROM Tests');

@@ -131,10 +131,10 @@ class VideoLibraryModel {
       // Fake videoları ekle
       for (const file of selectedFakeFiles) {
         const videoData = {
-          title: `Deepfake Video - ${file}`,
+          title: `Video - ${file}`,
           video_url: `/videos/fake/${file}`,
           thumbnail_url: null,
-          is_deepfake: true,
+          is_deepfake: null,  // Analiz edilene kadar null
           confidence_score: null
         };
         const created = await this.create(videoData);
@@ -144,10 +144,10 @@ class VideoLibraryModel {
       // Real videoları ekle
       for (const file of selectedRealFiles) {
         const videoData = {
-          title: `Original Video - ${file}`,
+          title: `Video - ${file}`,
           video_url: `/videos/real/${file}`,
           thumbnail_url: null,
-          is_deepfake: false,
+          is_deepfake: null,  // Analiz edilene kadar null
           confidence_score: null
         };
         const created = await this.create(videoData);
