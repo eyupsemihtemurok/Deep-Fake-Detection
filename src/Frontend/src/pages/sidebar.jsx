@@ -40,7 +40,7 @@ const Sidebar = () => {
           <Link className="sidebar-link" to="/">Video Analiz</Link>
         </li>
         <li className="sidebar-item">
-          <Link className="sidebar-link" to="/history">Geçmiş Analizler</Link>
+          <Link className="sidebar-link" to="/video-library">Video Kütüphanesi</Link>
         </li>
         <li className="sidebar-item">
           <Link className="sidebar-link" to="/hakkımızda">Hakkında</Link>
