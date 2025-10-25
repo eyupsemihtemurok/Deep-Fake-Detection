@@ -174,7 +174,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 16px 24px;
-  background-color: rgba(30, 28, 56, 0.7);
+  background-color: rgb(207 203 255 / 70%);
   backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
