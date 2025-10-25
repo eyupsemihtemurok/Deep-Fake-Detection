@@ -61,7 +61,18 @@ function Twitter() {
           </div>
           <div className="twitter__tweetContent">
             <div className="twitter__tweetHeader">
+              <div className="twitter__userInfo">
+                <span className="twitter__displayName">Ahmet Yılmaz</span>
+                <span className="twitter__username">@ahmetyilmaz</span>
+              </div>
               <span className="twitter__time">2 dk önce</span>
+            </div>
+            <div className="twitter__tweetText">
+              Bu videoda cumhurbaşkanının konuşması var. Önemli açıklamalar içeriyor! #siyaset #gündem
+            </div>
+            <div className="twitter__mediaInfo">
+              <i className="fas fa-video"></i>
+              <span>Video</span>
             </div>
             <div className="twitter__analysisResult deepfake">
               <div className="twitter__resultBadge">
@@ -107,7 +118,18 @@ function Twitter() {
           </div>
           <div className="twitter__tweetContent">
             <div className="twitter__tweetHeader">
+              <div className="twitter__userInfo">
+                <span className="twitter__displayName">Merve Kaya</span>
+                <span className="twitter__username">@mervekaya_</span>
+              </div>
               <span className="twitter__time">5 dk önce</span>
+            </div>
+            <div className="twitter__tweetText">
+              Dünkü konserin en güzel anı 🎵 Muhteşem bir performanstı! #müzik #konser
+            </div>
+            <div className="twitter__mediaInfo">
+              <i className="fas fa-video"></i>
+              <span>Video</span>
             </div>
             <div className="twitter__analysisResult original">
               <div className="twitter__resultBadge">
@@ -153,7 +175,18 @@ function Twitter() {
           </div>
           <div className="twitter__tweetContent">
             <div className="twitter__tweetHeader">
+              <div className="twitter__userInfo">
+                <span className="twitter__displayName">Spor Haber</span>
+                <span className="twitter__username">@spor_haber</span>
+              </div>
               <span className="twitter__time">15 dk önce</span>
+            </div>
+            <div className="twitter__tweetText">
+              Son dakika! Ünlü futbolcu transfer açıklaması yaptı. Bakın neler söyledi... #spor #transfer
+            </div>
+            <div className="twitter__mediaInfo">
+              <i className="fas fa-video"></i>
+              <span>Video</span>
             </div>
             <div className="twitter__analysisResult deepfake">
               <div className="twitter__resultBadge">
@@ -199,7 +232,18 @@ function Twitter() {
           </div>
           <div className="twitter__tweetContent">
             <div className="twitter__tweetHeader">
+              <div className="twitter__userInfo">
+                <span className="twitter__displayName">Haber Global</span>
+                <span className="twitter__username">@haberglobal</span>
+              </div>
               <span className="twitter__time">30 dk önce</span>
+            </div>
+            <div className="twitter__tweetText">
+              Ekonomi ile ilgili önemli gelişme! Bakan açıkladı. İşte detaylar... #ekonomi #gündem
+            </div>
+            <div className="twitter__mediaInfo">
+              <i className="fas fa-photo-video"></i>
+              <span>Fotoğraf/Video</span>
             </div>
             <div className="twitter__analysisResult original">
               <div className="twitter__resultBadge">
@@ -245,7 +289,18 @@ function Twitter() {
           </div>
           <div className="twitter__tweetContent">
             <div className="twitter__tweetHeader">
+              <div className="twitter__userInfo">
+                <span className="twitter__displayName">Tech News</span>
+                <span className="twitter__username">@technews_tr</span>
+              </div>
               <span className="twitter__time">1 saat önce</span>
+            </div>
+            <div className="twitter__tweetText">
+              Yeni yapay zeka modeli tanıtıldı! İnanılmaz özellikler içeriyor. Bu video ile tüm detaylar... #teknoloji #AI
+            </div>
+            <div className="twitter__mediaInfo">
+              <i className="fas fa-video"></i>
+              <span>Video</span>
             </div>
             <div className="twitter__analysisResult deepfake">
               <div className="twitter__resultBadge">

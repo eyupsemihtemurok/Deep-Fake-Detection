@@ -144,23 +144,51 @@ h2 {
 
 .twitter__tweetHeader {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 5px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.twitter__userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .twitter__displayName {
-  width: 80px;
-  height: 16px;
-  background-color: #e6ecf0;
-  border-radius: 4px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #0f1419;
 }
 
 .twitter__username {
-  width: 60px;
-  height: 14px;
-  background-color: #f0f4f7;
-  border-radius: 4px;
+  font-size: 14px;
+  color: #536471;
+}
+
+.twitter__time {
+  font-size: 14px;
+  color: #536471;
+}
+
+.twitter__tweetText {
+  font-size: 15px;
+  color: #0f1419;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.twitter__mediaInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #536471;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.twitter__mediaInfo i {
+  color: #1da1f2;
 }
 
 .twitter__timestamp {
