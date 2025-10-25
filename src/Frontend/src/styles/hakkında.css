@@ -36,7 +36,7 @@ body {
 .about-us-main {
   width: 100%;
   overflow: hidden; /* Animasyonların taşmasını engeller */
-  padding: 40px 20px 40px 320px; 
+  padding: 40px 20px 40px 120px; 
   box-sizing: border-box; /* Padding'in genişliği etkilememesi için */
   transition: padding-left 0.3s ease-in-out; /* Yumuşak geçiş için */
 }
