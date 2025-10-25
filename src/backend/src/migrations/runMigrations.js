@@ -94,6 +94,100 @@ const runMigrations = async () => {
     `);
     console.log('✅ Test verileri eklendi\n');
 
+    // Migration 3: Users tablosunu oluştur
+    console.log('📝 Migration 003: Users tablosu oluşturuluyor...');
+    await targetPool.request().query(`
+      IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
+      BEGIN
+        CREATE TABLE Users (
+          user_id INT IDENTITY(1,1) PRIMARY KEY,
+          username NVARCHAR(100) UNIQUE NOT NULL,
+          email NVARCHAR(255) UNIQUE NOT NULL,
+          password_hash NVARCHAR(255) NOT NULL,
+          created_at DATETIME DEFAULT GETDATE()
+        )
+      END
+    `);
+    console.log('✅ Users tablosu oluşturuldu\n');
+
+    // Migration 4: UploadedVideos tablosunu oluştur
+    console.log('📝 Migration 004: UploadedVideos tablosu oluşturuluyor...');
+    await targetPool.request().query(`
+      IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='UploadedVideos' AND xtype='U')
+      BEGIN
+        CREATE TABLE UploadedVideos (
+          video_id INT IDENTITY(1,1) PRIMARY KEY,
+          user_id INT NOT NULL,
+          video_url NVARCHAR(500) NOT NULL,
+          file_name NVARCHAR(255) NOT NULL,
+          analysis_status NVARCHAR(50) DEFAULT 'pending',
+          is_deepfake BIT NULL,
+          confidence_score FLOAT NULL,
+          uploaded_at DATETIME DEFAULT GETDATE(),
+          FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+        )
+      END
+    `);
+    console.log('✅ UploadedVideos tablosu oluşturuldu\n');
+
+    // Migration 5: TestVideos tablosunu oluştur
+    console.log('📝 Migration 005: TestVideos tablosu oluşturuluyor...');
+    await targetPool.request().query(`
+      IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='TestVideos' AND xtype='U')
+      BEGIN
+        CREATE TABLE TestVideos (
+          test_video_id INT IDENTITY(1,1) PRIMARY KEY,
+          title NVARCHAR(255) NOT NULL,
+          thumbnail_url NVARCHAR(500),
+          video_url NVARCHAR(500) NOT NULL,
+          is_deepfake BIT NOT NULL,
+          confidence_score FLOAT,
+          created_at DATETIME DEFAULT GETDATE()
+        )
+      END
+    `);
+    console.log('✅ TestVideos tablosu oluşturuldu\n');
+
+    // Migration 6: SocialPosts tablosunu oluştur
+    console.log('📝 Migration 006: SocialPosts tablosu oluşturuluyor...');
+    await targetPool.request().query(`
+      IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='SocialPosts' AND xtype='U')
+      BEGIN
+        CREATE TABLE SocialPosts (
+          post_id INT IDENTITY(1,1) PRIMARY KEY,
+          user_id INT NOT NULL,
+          content_text NVARCHAR(MAX),
+          media_url NVARCHAR(500),
+          media_type NVARCHAR(20),
+          is_deepfake BIT NULL,
+          is_fact_checked BIT NULL,
+          fact_check_result NVARCHAR(50),
+          created_at DATETIME DEFAULT GETDATE(),
+          FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+        )
+      END
+    `);
+    console.log('✅ SocialPosts tablosu oluşturuldu\n');
+
+    // Migration 7: AnalysisLogs tablosunu oluştur
+    console.log('📝 Migration 007: AnalysisLogs tablosu oluşturuluyor...');
+    await targetPool.request().query(`
+      IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='AnalysisLogs' AND xtype='U')
+      BEGIN
+        CREATE TABLE AnalysisLogs (
+          log_id INT IDENTITY(1,1) PRIMARY KEY,
+          content_type NVARCHAR(50) NOT NULL,
+          content_id INT NOT NULL,
+          analysis_type NVARCHAR(50) NOT NULL,
+          result NVARCHAR(100),
+          confidence_score FLOAT,
+          processing_time_ms INT,
+          analyzed_at DATETIME DEFAULT GETDATE()
+        )
+      END
+    `);
+    console.log('✅ AnalysisLogs tablosu oluşturuldu\n');
+
     // Verileri kontrol et
     const result = await targetPool.request().query('SELECT * FROM Tests');
     console.log('📊 Eklenen test verileri:');
