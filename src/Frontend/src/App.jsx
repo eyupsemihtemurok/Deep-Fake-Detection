@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./pages/sidebar";
 import Main from "./pages/main";
 import History from "./pages/history";
+import Twitter from "./pages/twitter";
 import "./App.css";
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/history" element={<History />} />
+            <Route path="/twitter" element={<Twitter />} />
           </Routes>
         </div>
       </div>

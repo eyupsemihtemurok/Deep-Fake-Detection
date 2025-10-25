@@ -19,6 +19,9 @@ const Sidebar = () => {
         <li className="sidebar-item">
           <Link className="sidebar-link" to="/about">Hakkında</Link>
         </li>
+        <li className="sidebar-item">
+          <Link className="sidebar-link" to="/twitter">Twitter Examples</Link>
+        </li>
       </ul>
     </div>
   );
