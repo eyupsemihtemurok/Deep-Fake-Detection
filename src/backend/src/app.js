@@ -2,9 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import testRoutes from './routes/testRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import videoLibraryRoutes from './routes/videoLibraryRoutes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -34,6 +39,11 @@ const swaggerOptions = {
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Serve video files statically
+const datasetPath = path.join(__dirname, '../../YapayZeka/dataset');
+app.use('/videos/fake', express.static(path.join(datasetPath, 'DFD_manipulated_sequences/DFD_manipulated_sequences')));
+app.use('/videos/real', express.static(path.join(datasetPath, 'DFD_original sequences')));
 
 // Routes
 app.get('/', (req, res) => {

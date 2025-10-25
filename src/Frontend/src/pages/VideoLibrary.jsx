@@ -101,11 +101,6 @@ const VideoLibrary = () => {
 
   return (
     <div className="video-library-container">
-      <header>
-        <h1>📹 Video Kütüphanesi</h1>
-        <p className="subtitle">Deepfake tespit sistemi ile videoları analiz edin</p>
-      </header>
-
       {/* AI Dropdown */}
       <div className="ai-controls">
         <button 
@@ -127,7 +122,7 @@ const VideoLibrary = () => {
               onClick={analyzeAllVideos}
               disabled={analyzing || videos.length === 0}
             >
-              {analyzing ? '🔄 Analiz Ediliyor...' : '🚀 Modeli Aktif Et'}
+              {analyzing ? '🔄 Analiz Ediliyor...' : '🚀 Modeli Aktif/Pasif Et'}
             </button>
 
             {analysisResults && (
@@ -202,10 +197,15 @@ const VideoLibrary = () => {
             >
               <div className="video-number-badge">Video {index + 1}</div>
               
-              <div className="video-thumbnail">
-                <div className="placeholder-thumbnail">
-                  🎬
-                </div>
+              <div className="video-player">
+                <video 
+                  controls 
+                  className="video-element"
+                  poster={video.thumbnail_url || undefined}
+                >
+                  <source src={`http://localhost:3000${video.video_url}`} type="video/mp4" />
+                  Tarayıcınız video oynatmayı desteklemiyor.
+                </video>
               </div>
 
               <div className="video-info">

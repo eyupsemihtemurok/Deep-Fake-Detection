@@ -98,44 +98,64 @@ class VideoLibraryModel {
       const realVideosPath = path.join(datasetPath, 'DFD_original sequences');
 
       const videos = [];
+      let allFakeFiles = [];
+      let allRealFiles = [];
 
-      // Fake videoları yükle
+      // Fake videoları listele
       if (fs.existsSync(fakeVideosPath)) {
-        const fakeFiles = fs.readdirSync(fakeVideosPath)
-          .filter(file => file.endsWith('.mp4') || file.endsWith('.avi') || file.endsWith('.mov'))
-          .slice(0, 3); // İlk 3 fake video
-
-        for (const file of fakeFiles) {
-          const videoData = {
-            title: `Deepfake Video - ${file}`,
-            video_url: `/videos/fake/${file}`,
-            thumbnail_url: null,
-            is_deepfake: true,
-            confidence_score: null
-          };
-          const created = await this.create(videoData);
-          videos.push(created);
-        }
+        allFakeFiles = fs.readdirSync(fakeVideosPath)
+          .filter(file => file.endsWith('.mp4') || file.endsWith('.avi') || file.endsWith('.mov'));
       }
 
-      // Real videoları yükle
+      // Real videoları listele
       if (fs.existsSync(realVideosPath)) {
-        const realFiles = fs.readdirSync(realVideosPath)
-          .filter(file => file.endsWith('.mp4') || file.endsWith('.avi') || file.endsWith('.mov'))
-          .slice(0, 3); // İlk 3 real video
-
-        for (const file of realFiles) {
-          const videoData = {
-            title: `Original Video - ${file}`,
-            video_url: `/videos/real/${file}`,
-            thumbnail_url: null,
-            is_deepfake: false,
-            confidence_score: null
-          };
-          const created = await this.create(videoData);
-          videos.push(created);
-        }
+        allRealFiles = fs.readdirSync(realVideosPath)
+          .filter(file => file.endsWith('.mp4') || file.endsWith('.avi') || file.endsWith('.mov'));
       }
+
+      // En az 1 gerçek ve 1 deepfake olmak üzere toplam 6 video seç
+      // Random olarak 1-5 arasında fake video seç
+      const numFakeVideos = Math.max(1, Math.min(5, Math.floor(Math.random() * 5) + 1));
+      const numRealVideos = 6 - numFakeVideos; // Kalan sayı gerçek video olacak
+
+      // Random fake videolar seç
+      const selectedFakeFiles = allFakeFiles
+        .sort(() => Math.random() - 0.5)
+        .slice(0, Math.min(numFakeVideos, allFakeFiles.length));
+
+      // Random real videolar seç
+      const selectedRealFiles = allRealFiles
+        .sort(() => Math.random() - 0.5)
+        .slice(0, Math.min(numRealVideos, allRealFiles.length));
+
+      // Fake videoları ekle
+      for (const file of selectedFakeFiles) {
+        const videoData = {
+          title: `Deepfake Video - ${file}`,
+          video_url: `/videos/fake/${file}`,
+          thumbnail_url: null,
+          is_deepfake: true,
+          confidence_score: null
+        };
+        const created = await this.create(videoData);
+        videos.push(created);
+      }
+
+      // Real videoları ekle
+      for (const file of selectedRealFiles) {
+        const videoData = {
+          title: `Original Video - ${file}`,
+          video_url: `/videos/real/${file}`,
+          thumbnail_url: null,
+          is_deepfake: false,
+          confidence_score: null
+        };
+        const created = await this.create(videoData);
+        videos.push(created);
+      }
+
+      // Videoları karıştır
+      videos.sort(() => Math.random() - 0.5);
 
       return videos;
     } catch (error) {
