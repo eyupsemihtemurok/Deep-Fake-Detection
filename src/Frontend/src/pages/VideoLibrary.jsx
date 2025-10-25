@@ -101,63 +101,70 @@ const VideoLibrary = () => {
 
   return (
     <div className="video-library-container">
-      {/* AI Dropdown */}
-      <div className="ai-controls">
-        <button 
-          className="ai-dropdown-btn"
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          🤖 AI Analiz ▼
-        </button>
-        
-        {showDropdown && (
-          <div className="ai-dropdown-content">
-            <div className="dropdown-header">
-              <h3>AI Deepfake Tespiti</h3>
-              <button className="close-dropdown" onClick={() => setShowDropdown(false)}>✕</button>
-            </div>
-            
-            <button 
-              className="analyze-btn"
-              onClick={analyzeAllVideos}
-              disabled={analyzing || videos.length === 0}
-            >
-              {analyzing ? '🔄 Analiz Ediliyor...' : '🚀 Modeli Aktif/Pasif Et'}
-            </button>
-
-            {analysisResults && (
-              <div className="analysis-results">
-                <h4>📊 Analiz Sonuçları:</h4>
-                <div className="results-list">
-                  {analysisResults.map((result, index) => (
-                    <div 
-                      key={result.video_id} 
-                      className={`result-item ${result.is_deepfake ? 'fake' : 'real'}`}
-                    >
-                      <span className="video-number">Video {index + 1}</span>
-                      <span className="result-label">
-                        {result.is_deepfake ? '🔴 DEEPFAKE' : '🟢 GERÇEK'}
-                      </span>
-                      <span className="confidence">
-                        %{result.confidence_score?.toFixed(2) || 'N/A'}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+      {/* AI Analiz ve Action Buttons - Tek Satır */}
+      <div className="controls-row">
+        <div className="ai-controls">
+          <button 
+            className="ai-dropdown-btn"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            🤖 AI Analiz ▼
+          </button>
+          
+          {showDropdown && (
+            <div className="ai-dropdown-content">
+              <div className="dropdown-header">
+                <h3>AI Deepfake Tespiti</h3>
+                <button className="close-dropdown" onClick={() => setShowDropdown(false)}>✕</button>
               </div>
-            )}
-          </div>
-        )}
-      </div>
+              
+              <button 
+                className="analyze-btn"
+                onClick={analyzeAllVideos}
+                disabled={analyzing || videos.length === 0}
+              >
+                {analyzing ? '🔄 Analiz Ediliyor...' : '🚀 Modeli Aktif/Pasif Et'}
+              </button>
 
-      {/* Action Buttons */}
-      <div className="action-buttons">
-        <button onClick={loadLocalVideos} disabled={loading} className="load-btn">
-          {loading ? '⏳ Yükleniyor...' : '📂 Local Videoları Yükle'}
-        </button>
-        <button onClick={() => loadVideos(currentPage)} disabled={loading} className="refresh-btn">
-          🔄 Yenile
-        </button>
+              {analysisResults && (
+                <div className="analysis-results">
+                  <h4>📊 Analiz Sonuçları:</h4>
+                  <div className="results-list">
+                    {analysisResults.map((result, index) => (
+                      <div 
+                        key={result.video_id} 
+                        className={`result-item ${result.is_deepfake ? 'fake' : 'real'}`}
+                      >
+                        <span className="video-number">Video {index + 1}</span>
+                        <span className="result-label">
+                          {result.is_deepfake ? '🔴 DEEPFAKE' : '🟢 GERÇEK'}
+                        </span>
+                        <span className="confidence">
+                          %{result.confidence_score?.toFixed(2) || 'N/A'}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="action-buttons">
+          <button onClick={loadLocalVideos} disabled={loading} className="load-btn">
+            {loading ? '⏳ Yükleniyor...' : '📂 Local Videoları Yükle'}
+          </button>
+          <button 
+            onClick={() => loadVideos(currentPage)} 
+            disabled={loading} 
+            className="refresh-btn"
+            title="Yenile"
+          >
+            🔄
+          </button>
+        </div>
       </div>
 
       {/* Pagination Info */}
