@@ -1,5 +1,8 @@
 /* ===== Genel Sidebar Alanı ===== */
 .sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 260px;
   height: 100vh;
   background-color: #ffffff; /* Beyaz zemin */
@@ -11,6 +14,8 @@
   padding: 20px 15px;
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.04);
   font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  z-index: 100;
 }
 
 /* ===== Başlık ===== */
@@ -127,8 +132,12 @@ button {
 /* ===== Responsive Düzen ===== */
 @media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    position: static;
+    width: 100%;
+    height: auto;
     padding: 15px;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .sidebar-link {
