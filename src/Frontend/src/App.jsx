@@ -1,12 +1,15 @@
-import Main from './pages/main.jsx'
-import './App.css'
+import React from "react";
+import Sidebar from "./pages/sidebar";
+import Main from "./pages/main";
+import "./App.css"; 
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div className="app-container">
+      <Sidebar />
       <Main />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,20 +1,17 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-  color: #fff;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-.App {
-  min-height: 100vh;
+.app-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh;
+  background: #1e1e1e; /* Koyu arka plan */
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+  }
 }
