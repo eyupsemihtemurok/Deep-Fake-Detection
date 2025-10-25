@@ -1,0 +1,17 @@
+{
+  "name": "gemini-fact-checker",
+  "version": "1.0.0",
+  "description": "Gemini API ile fact-checking servisi",
+  "main": "factChecker.js",
+  "type": "module",
+  "scripts": {
+    "test": "node testFactChecker.js"
+  },
+  "keywords": ["gemini", "fact-checking", "ai"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "dotenv": "^16.3.1"
+  }
+}

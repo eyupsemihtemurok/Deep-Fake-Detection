@@ -343,6 +343,10 @@ paket-files/
 **/__pycache__/
 *.pyc
 
+# Dataset klasörü - Video ve resim dosyaları
+src/YapayZeka/dataset/**
+!src/YapayZeka/dataset/.gitkeep
+
 # Cake - Uncomment if you are using it
 #tools/**
 #!tools/packages.config
