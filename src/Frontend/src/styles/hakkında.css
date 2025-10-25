@@ -1,0 +1,422 @@
+/* ============================================= */
+/* 1. DEĞİŞKENLER VE TEMEL AYARLAR      */
+/* ============================================= */
+:root {
+  --bg-color: #0d0c1d; /* Ana Arkaplan Rengi (Koyu Mor) */
+  --card-bg-color: rgba(255, 255, 255, 0.05); /* Yarı saydam kart arkaplanı */
+  
+  --primary-text-color: #1a1a1a; /* Koyu ana metin rengi */
+  
+  /* DEĞİŞİKLİK: İkincil metin rengi daha koyu yapıldı */
+  --secondary-text-color: #4a4a4a; /* Koyu ikincil metin rengi */
+  
+  --border-color: rgba(139, 92, 246, 0.3); /* Vurgu rengiyle uyumlu sınır */
+  
+  /* Canlı Gradient Renkleri */
+  --gradient-start: #8b5cf6; /* Mor */
+  --gradient-middle: #ec4899; /* Pembe */
+  --gradient-end: #f59e0b;   /* Turuncu */
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --container-width: 1200px;
+  --border-radius: 12px;
+}
+
+/* Temel reset ve font ayarları */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ana Konteyner */
+.about-us-main {
+  width: 100%;
+  overflow: hidden; /* Animasyonların taşmasını engeller */
+  padding: 40px 20px 40px 320px; 
+  box-sizing: border-box; /* Padding'in genişliği etkilememesi için */
+  transition: padding-left 0.3s ease-in-out; /* Yumuşak geçiş için */
+}
+
+.about-us-container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+
+/* ============================================= */
+/* 2. ANİMASYONLAR                      */
+/* ============================================= */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes gradient-pan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* ============================================= */
+/* 3. GENEL BÖLÜM STİLLERİ              */
+/* ============================================= */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  color: var(--primary-text-color);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--secondary-text-color);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+/* ============================================= */
+/* 4. HERO BÖLÜMÜ                       */
+/* ============================================= */
+.about-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 80px 0;
+  min-height: 80vh;
+}
+
+.hero-content {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  color: var(--primary-text-color);
+}
+.badge-icon { color: var(--gradient-start); }
+
+.hero-title {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: var(--primary-text-color);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-middle), var(--gradient-end));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-pan 4s linear infinite;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--secondary-text-color);
+  max-width: 500px;
+  margin-bottom: 40px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-text-color);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--secondary-text-color);
+}
+
+.hero-visual {
+  position: relative;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(13, 12, 29, 0) 70%);
+}
+
+.floating-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background-color: rgba(30, 28, 56, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: float 6s ease-in-out infinite;
+  color: var(--primary-text-color);
+}
+.floating-card .card-icon { font-size: 1.5rem; color: var(--gradient-start); }
+.card-1 { top: 10%; left: 0; }
+.card-2 { top: 40%; left: 50%; animation-delay: -2s; }
+.card-3 { top: 70%; left: 15%; animation-delay: -4s; }
+
+
+/* ============================================= */
+/* 5. MİSYON & VİZYON                   */
+/* ============================================= */
+.mission-vision-section { padding: 80px 0; }
+
+.mission-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.mission-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  padding: 40px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.mission-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.card-icon-wrapper {
+  background-color: var(--card-bg-color);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+}
+.mission-icon { font-size: 2rem; color: var(--gradient-start); }
+.mission-card h3 { 
+  font-size: 1.8rem; 
+  margin-bottom: 15px; 
+  color: var(--primary-text-color);
+}
+.mission-card p { color: var(--secondary-text-color); }
+.card-decoration {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, var(--gradient-start) 0%, transparent 70%);
+  opacity: 0.2;
+  transition: opacity 0.3s ease;
+}
+.mission-card:hover .card-decoration { opacity: 0.4; }
+
+
+/* ============================================= */
+/* 6. BİZ KİMİZ? (STORY)                 */
+/* ============================================= */
+.story-section { padding: 80px 0; }
+.story-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+.story-text .section-header { text-align: left; }
+.story-description { color: var(--secondary-text-color); margin-bottom: 20px; }
+.expertise-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.expertise-tag {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  color: var(--primary-text-color);
+}
+.expertise-tag:hover { background-color: var(--gradient-start); color: #fff; }
+
+.team-illustration { /* Soyut takım görselleştirmesi */
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+.team-member {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--card-bg-color);
+  border: 2px solid var(--gradient-start);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+.member-1 { top: 0; left: 50%; transform: translateX(-50%); }
+.member-2 { bottom: 0; left: 10%; }
+.member-3 { bottom: 0; right: 10%; }
+
+
+/* ============================================= */
+/* 7. TEKNOLOJİMİZ                     */
+/* ============================================= */
+.technology-section { padding: 80px 0; }
+.tech-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.tech-feature {
+  text-align: center;
+  padding: 30px;
+  border-radius: var(--border-radius);
+  background: var(--card-bg-color);
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.tech-feature:hover { border-color: var(--border-color); }
+.feature-icon-wrapper {
+  margin: 0 auto 25px auto;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-image: linear-gradient(135deg, var(--gradient-start), var(--gradient-middle));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-icon { font-size: 2rem; color: #fff; }
+.tech-feature h3 { 
+  font-size: 1.5rem; 
+  margin-bottom: 10px; 
+  color: var(--primary-text-color);
+}
+.tech-feature p { color: var(--secondary-text-color); font-size: 0.95rem; margin-bottom: 20px; }
+.feature-highlight {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 50px;
+  background-color: rgba(139, 92, 246, 0.2);
+  color: var(--primary-text-color); 
+}
+
+
+/* ============================================= */
+/* 8. DEĞERLERİMİZ                      */
+/* ============================================= */
+.values-section { padding: 80px 0; }
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.value-item {
+  background: transparent;
+  padding: 20px;
+  text-align: center;
+}
+.value-icon-wrapper {
+  margin-bottom: 20px;
+}
+.value-icon { font-size: 3rem; color: var(--primary-text-color); opacity: 0.7; transition: color 0.3s, opacity 0.3s; }
+.value-item:hover .value-icon { color: var(--gradient-start); opacity: 1; }
+.value-item h4 { 
+  font-size: 1.5rem; 
+  margin-bottom: 10px; 
+  color: var(--primary-text-color);
+}
+.value-item p { color: var(--secondary-text-color); }
+
+
+/* ============================================= */
+/* 9. CTA (CALL TO ACTION)              */
+/* ============================================= */
+.cta-section {
+  padding: 80px 40px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 80px 0;
+  background-image: radial-gradient(at top center, rgba(139, 92, 246, 0.4) 0%, rgba(13, 12, 29, 0) 50%),
+                    linear-gradient(120deg, var(--bg-color), #1c1a3e);
+  border: 1px solid var(--border-color);
+}
+.cta-content h2 { 
+  font-size: 2.8rem; 
+  margin-bottom: 15px; 
+  color: #e2e1e4;
+}
+.cta-content p { color: #cacacf; font-size: 1.1rem; margin-bottom: 30px; }
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background-image: linear-gradient(90deg, var(--gradient-start), var(--gradient-middle));
+  background-size: 200% auto;
+  transition: background-position 0.4s ease;
+}
+.cta-button:hover { background-position: right center; }
+
+
+/* ============================================= */
+/* 10. DUYARLILIK (RESPONSIVE)          */
+/* ============================================= */
+@media (max-width: 1024px) {
+  .about-us-main {
+    padding: 40px 20px;
+  }
+  
+  .about-hero, .story-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-content { order: 2; }
+  .hero-visual { order: 1; height: 300px; margin-bottom: 40px; }
+  .hero-description, .hero-stats { margin-left: auto; margin-right: auto; justify-content: center; }
+  .story-text .section-header { text-align: center; }
+  .story-visual { margin-top: 40px; }
+  .tech-features, .values-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .mission-cards { grid-template-columns: 1fr; }
+}
