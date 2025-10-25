@@ -1,0 +1,206 @@
+.twitter {
+  flex: 0.5;
+  border-right: 1px solid var(--twitter-background);
+  border-left: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.twitter::-webkit-scrollbar {
+  display: none;
+}
+
+h2{
+    color: #1da1f2;
+}
+.twitter {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Header */
+.twitter__header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  border-bottom: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+}
+
+.twitter__header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* Tweet Box */
+.twitter__tweetBox {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--twitter-background);
+}
+
+.twitter__tweetBoxTop {
+  display: flex;
+  gap: 15px;
+}
+
+.twitter__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e6ecf0;
+}
+
+.twitter__inputArea {
+  flex: 1;
+}
+
+.twitter__inputPlaceholder {
+  height: 50px;
+  background-color: #f8f9fa;
+  border: 1px solid #e6ecf0;
+  border-radius: 8px;
+  padding: 15px;
+  color: #657786;
+}
+
+.twitter__tweetBoxBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-left: 65px;
+}
+
+.twitter__icons {
+  display: flex;
+  gap: 15px;
+}
+
+.twitter__icon {
+  width: 20px;
+  height: 20px;
+  background-color: #e6ecf0;
+  border-radius: 4px;
+}
+
+.twitter__tweetButton {
+  background-color: #1da1f2;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Tweet Feed */
+.twitter__feed {
+  padding-bottom: 60px;
+}
+
+/* Individual Tweet */
+.twitter__tweet {
+  display: flex;
+  gap: 15px;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--twitter-background);
+}
+
+.twitter__tweetAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e6ecf0;
+}
+
+.twitter__tweetContent {
+  flex: 1;
+}
+
+.twitter__tweetHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.twitter__displayName {
+  width: 80px;
+  height: 16px;
+  background-color: #e6ecf0;
+  border-radius: 4px;
+}
+
+.twitter__username {
+  width: 60px;
+  height: 14px;
+  background-color: #f0f4f7;
+  border-radius: 4px;
+}
+
+.twitter__timestamp {
+  width: 40px;
+  height: 14px;
+  background-color: #f0f4f7;
+  border-radius: 4px;
+}
+
+.twitter__tweetText {
+  width: 100%;
+  height: 16px;
+  background-color: #e6ecf0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.twitter__tweetTextShort {
+  width: 70%;
+  height: 16px;
+  background-color: #e6ecf0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.twitter__tweetImage {
+  width: 100%;
+  height: 200px;
+  background-color: #f0f4f7;
+  border-radius: 15px;
+  margin: 10px 0;
+}
+
+.twitter__tweetActions {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin-top: 15px;
+}
+
+.twitter__action {
+  width: 35px;
+  height: 35px;
+  background-color: #f0f4f7;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .twitter {
+    flex: 1;
+    min-width: auto;
+  }
+  
+  .twitter__header {
+    padding: 10px 15px;
+  }
+  
+  .twitter__tweetBox {
+    padding: 10px 15px;
+  }
+  
+  .twitter__tweet {
+    padding: 10px 15px;
+  }
+}
