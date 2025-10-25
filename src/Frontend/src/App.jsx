@@ -4,6 +4,7 @@ import Sidebar from "./pages/sidebar";
 import Main from "./pages/main";
 import History from "./pages/history";
 import Twitter from "./pages/twitter";
+import Hakkında from "./pages/hakkında";
 import "./App.css";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/" element={<Main />} />
             <Route path="/history" element={<History />} />
             <Route path="/twitter" element={<Twitter />} />
+            <Route path="/hakkımızda" element={<Hakkında />} />
           </Routes>
         </div>
       </div>
