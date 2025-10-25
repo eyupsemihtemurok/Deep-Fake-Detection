@@ -4,6 +4,7 @@ import Sidebar from "./pages/sidebar";
 import Main from "./pages/main";
 import History from "./pages/history";
 import Twitter from "./pages/twitter";
+import Hakkında from "./pages/hakkında";
 import VideoLibrary from "./pages/VideoLibrary";
 import "./App.css";
 
