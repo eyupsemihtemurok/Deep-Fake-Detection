@@ -4,6 +4,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import testRoutes from './routes/testRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import videoLibraryRoutes from './routes/videoLibraryRoutes.js';
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.get('/', (req, res) => {
     endpoints: {
       tests: '/api/tests',
       auth: '/api/auth',
+      videoLibrary: '/api/video-library',
       swagger: '/api-docs'
     }
   });
@@ -49,6 +51,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/tests', testRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/video-library', videoLibraryRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
