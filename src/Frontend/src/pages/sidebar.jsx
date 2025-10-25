@@ -8,13 +8,10 @@ const Sidebar = () => {
       <h2 className="sidebar-title">Menü</h2>
       <ul className="sidebar-menu">
         <li className="sidebar-item">
-          <Link className="sidebar-link" to="/">Ana Sayfa</Link>
+          <Link className="sidebar-link" to="/">Video Analiz</Link>
         </li>
         <li className="sidebar-item">
           <Link className="sidebar-link" to="/history">Geçmiş Analizler</Link>
-        </li>
-        <li className="sidebar-item">
-          <Link className="sidebar-link" to="/settings">Ayarlar</Link>
         </li>
         <li className="sidebar-item">
           <Link className="sidebar-link" to="/about">Hakkında</Link>

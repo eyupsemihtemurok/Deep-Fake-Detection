@@ -1,13 +1,18 @@
 .sidebar {
   width: 220px;
   min-height: 100vh;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(30, 30, 30, 0.95); /* VS Code dark tema havası */
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: white;
+  color: #d4d4d4; /* VS Code metin rengi */
+  font-family: "Consolas", "Courier New", monospace; /* VS Code fontu */
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.6); /* hafif gölge efekti */
+  transition: all 0.2s ease;
 }
 
 .sidebar-title {
