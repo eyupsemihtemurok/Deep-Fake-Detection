@@ -122,7 +122,7 @@ class Trainer:
     def train(self, num_epochs=10):
         """Tüm eğitim süreci"""
         print("\n" + "=" * 60)
-        print("🚀 Deepfake Detector Eğitimi Başlatılıyor")
+        print("[START] Deepfake Detector Egitimi Baslatiliyor")
         print("=" * 60)
         
         start_time = datetime.now()
@@ -130,7 +130,7 @@ class Trainer:
         patience_counter = 0
         
         for epoch in range(num_epochs):
-            print(f"\n📍 Epoch {epoch+1}/{num_epochs}")
+            print(f"\n[EPOCH] {epoch+1}/{num_epochs}")
             
             # Eğit
             train_loss, train_acc = self.train_epoch()
@@ -143,8 +143,8 @@ class Trainer:
             self.val_accs.append(val_acc)
             
             # Sonuçları göster
-            print(f"   📊 Train Loss: {train_loss:.4f} | Train Accuracy: {train_acc:.2f}%")
-            print(f"   📊 Val Loss: {val_loss:.4f} | Val Accuracy: {val_acc:.2f}%")
+            print(f"   [TRAIN] Loss: {train_loss:.4f} | Accuracy: {train_acc:.2f}%")
+            print(f"   [VAL]   Loss: {val_loss:.4f} | Accuracy: {val_acc:.2f}%")
             
             # Learning rate scheduler
             self.scheduler.step(val_loss)
@@ -154,13 +154,13 @@ class Trainer:
                 best_val_acc = val_acc
                 patience_counter = 0
                 self.save_model(f"models/deepfake_detector_best.pth")
-                print(f"   ✅ En iyi model kaydedildi! (Accuracy: {val_acc:.2f}%)")
+                print(f"   [BEST] Model kaydedildi! Accuracy: {val_acc:.2f}%")
             else:
                 patience_counter += 1
             
             # Early stopping
             if patience_counter >= 5:
-                print(f"\n⚠️  Early stopping! Validation accuracy 5 epoch boyunca iyileşmedi.")
+                print(f"\n[STOP] Early stopping! Validation accuracy iyilesemedi.")
                 break
         
         # Eğitim bitişi
@@ -168,10 +168,10 @@ class Trainer:
         elapsed_time = end_time - start_time
         
         print("\n" + "=" * 60)
-        print("✨ Eğitim Tamamlandı!")
+        print("[FINISH] Egitim Tamamlandi!")
         print("=" * 60)
-        print(f"⏱️  Geçen Süre: {elapsed_time}")
-        print(f"🏆 En İyi Validation Accuracy: {best_val_acc:.2f}%")
+        print(f"[TIME] Gecen Sure: {elapsed_time}")
+        print(f"[BEST] En Iyi Validation Accuracy: {best_val_acc:.2f}%")
         print("=" * 60)
         
         self.plot_results()
@@ -215,20 +215,20 @@ def main():
     import os
     script_dir = os.path.dirname(os.path.abspath(__file__))
     DATA_DIR = os.path.join(script_dir, "data")
-    BATCH_SIZE = 64
-    LEARNING_RATE = 5e-4
-    NUM_EPOCHS = 20
+    BATCH_SIZE = 32  # 64 yerine 32 - daha iyi generalization
+    LEARNING_RATE = 1e-4  # 5e-4 yerine 1e-4 - daha düşük learning rate
+    NUM_EPOCHS = 30  # 20 yerine 30 - daha uzun eğitim
     
     # Device seç
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"🖥️  Device: {device}\n")
+    print(f"[INFO] Device: {device}\n")
     
     # Data loaders oluştur
     train_loader, val_loader = get_data_loaders(DATA_DIR, batch_size=BATCH_SIZE)
     
     # Model oluştur
     model = get_model(device, pretrained=True)
-    print("✅ Model yüklendi (ResNet50 pre-trained)\n")
+    print("[OK] Model yüklendi (ResNet50 pre-trained)\n")
     
     # Trainer oluştur ve eğit
     trainer = Trainer(model, train_loader, val_loader, device, learning_rate=LEARNING_RATE, num_epochs=NUM_EPOCHS)
