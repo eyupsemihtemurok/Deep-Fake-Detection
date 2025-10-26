@@ -11,6 +11,7 @@
 *.sln.docstates
 *.env
 
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -395,6 +396,22 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Large dataset and processed data directories
+# Bu klasörler çok büyük olduğu için git'e eklenmez
+data/
+dataset/
+*.mp4
+*.avi
+*.mov
+*.flv
+*.mkv
+src/YapayZeka/data/
+src/YapayZeka/dataset/
+# models/ klasörü ve .pth dosyalarına İZİN VER (trained model'ı paylaşmak için)
+# models/
+# *.pth
+# *.pt
 
 # VS Code files for those working on multiple tools
 .vscode/*
