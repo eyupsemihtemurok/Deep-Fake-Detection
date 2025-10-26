@@ -408,10 +408,8 @@ dataset/
 *.mkv
 src/YapayZeka/data/
 src/YapayZeka/dataset/
-# models/ klasörü ve .pth dosyalarına İZİN VER (trained model'ı paylaşmak için)
-# models/
-# *.pth
-# *.pt
+*.pth
+*.pt
 
 # VS Code files for those working on multiple tools
 .vscode/*
