@@ -40,13 +40,13 @@ const Sidebar = () => {
           <Link className="sidebar-link" to="/">Video Analiz</Link>
         </li>
         <li className="sidebar-item">
+          <Link className="sidebar-link" to="/single-video-analyzer">Tek Video Analiz</Link>
+        </li>
+        <li className="sidebar-item">
           <Link className="sidebar-link" to="/video-library">Video Kütüphanesi</Link>
         </li>
         <li className="sidebar-item">
           <Link className="sidebar-link" to="/hakkımızda">Hakkında</Link>
-        </li>
-        <li className="sidebar-item">
-          <Link className="sidebar-link" to="/twitter">Twitter Examples</Link>
         </li>
       </ul>
 

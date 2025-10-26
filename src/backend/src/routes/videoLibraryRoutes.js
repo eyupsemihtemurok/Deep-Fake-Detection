@@ -77,4 +77,26 @@ router.post('/analyze-all', VideoLibraryController.analyzeAll);
  */
 router.post('/analyze/:id', VideoLibraryController.analyzeSingle);
 
+/**
+ * @swagger
+ * /api/video-library/analyze-single-url:
+ *   post:
+ *     summary: Video URL'si ile doğrudan analiz et (veritabanına kaydetmeden)
+ *     tags: [Video Library]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               videoUrl:
+ *                 type: string
+ *                 example: /videos/fake/11_21__podium_speech_happy__T7DK03O1.mp4
+ *     responses:
+ *       200:
+ *         description: Video analiz edildi
+ */
+router.post('/analyze-single-url', VideoLibraryController.analyzeSingleUrl);
+
 export default router;

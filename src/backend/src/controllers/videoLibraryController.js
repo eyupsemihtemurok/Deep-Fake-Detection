@@ -240,6 +240,46 @@ class VideoLibraryController {
       });
     }
   }
+
+  // Tek video URL ile analiz et (veritabanına kaydetmeden) - POST /api/video-library/analyze-single-url
+  static async analyzeSingleUrl(req, res) {
+    try {
+      const { videoUrl } = req.body;
+
+      if (!videoUrl) {
+        return res.status(400).json({
+          success: false,
+          error: 'Video URL\'si gerekli'
+        });
+      }
+
+      console.log('\n🎬 Tek video analizi başlatılıyor...');
+      console.log(`📹 Video URL: ${videoUrl}`);
+
+      // 🔥 Kendi model'i kullan
+      const analysis = await analyzeWithLocalModel(videoUrl);
+      
+      console.log('✅ Analiz tamamlandı:', analysis);
+
+      res.json({
+        success: true,
+        message: 'Video analiz edildi',
+        result: {
+          video_url: videoUrl,
+          is_deepfake: analysis.prediction === 'FAKE',
+          confidence_score: analysis.confidence,
+          analyzed_at: new Date().toISOString()
+        }
+      });
+    } catch (error) {
+      console.error('❌ Video analiz hatası:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Video analiz edilirken hata oluştu',
+        message: error.message
+      });
+    }
+  }
 }
 
 export default VideoLibraryController;

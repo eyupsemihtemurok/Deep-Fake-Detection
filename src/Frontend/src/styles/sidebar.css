@@ -5,14 +5,14 @@
   top: 0;
   width: 260px;
   height: 100vh;
-  background-color: #ffffff; /* Beyaz zemin */
-  color: #111; /* Siyah yazılar */
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  color: #2c3e50;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid #e0e0e0;
   padding: 20px 15px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
   font-family: 'Inter', sans-serif;
   overflow-y: auto;
   z-index: 100;
@@ -25,6 +25,10 @@
   letter-spacing: 1px;
   text-align: center;
   margin-bottom: 25px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ===== Menü ===== */
@@ -41,7 +45,7 @@
 .sidebar-link {
   display: block;
   text-decoration: none;
-  color: #111;
+  color: #2c3e50;
   font-size: 1rem;
   padding: 10px 15px;
   border-radius: 8px;
@@ -50,14 +54,15 @@
 }
 
 .sidebar-link:hover {
-  background-color: #f0f0f0;
+  background: rgba(102, 126, 234, 0.1);
   transform: translateX(3px);
+  color: #667eea;
 }
 
 /* ===== Kullanıcı Profili Alanı ===== */
 .user-profile {
   margin-top: auto;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #e0e0e0;
   padding-top: 15px;
 }
 
@@ -68,7 +73,7 @@
 }
 
 .profile-avatar {
-  background-color: #111;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   width: 48px;
   height: 48px;
@@ -79,12 +84,14 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .profile-name {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 10px;
+  color: #2c3e50;
 }
 
 /* ===== Butonlar ===== */
@@ -99,15 +106,17 @@ button {
 }
 
 .login-btn {
-  background-color: #111;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   width: 100%;
   margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .login-btn:hover {
-  background-color: #333;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
 
 .logout-btn {

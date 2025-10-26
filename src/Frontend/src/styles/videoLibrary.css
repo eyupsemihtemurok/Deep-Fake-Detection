@@ -4,6 +4,8 @@
   margin: 0;
   padding: 30px;
   box-sizing: border-box;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
 }
 
 /* AI Controls & Action Buttons - Tek Satır */
@@ -21,15 +23,15 @@
 
 .ai-dropdown-btn {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #111 0%, #333 100%);
-  border: 2px solid #444;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 2px solid #e0e0e0;
   border-radius: 10px;
-  color: #fff;
+  color: #2c3e50;
   font-weight: bold;
   font-size: 15px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -40,11 +42,12 @@
   background: linear-gradient(135deg, #2ed573 0%, #26d073 100%);
   border: 2px solid #2ed573;
   box-shadow: 0 4px 16px rgba(46, 213, 115, 0.4);
+  color: #ffffff;
 }
 
 .ai-dropdown-btn.inactive {
-  background: linear-gradient(135deg, #555 0%, #777 100%);
-  border: 2px solid #666;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  border: 2px solid #ced4da;
 }
 
 .ai-dropdown-btn .ai-icon {

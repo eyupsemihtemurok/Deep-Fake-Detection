@@ -2,8 +2,8 @@
   display: flex;
   min-height: 100vh;
   margin: auto;
-  background: #1e1e1e; /* Koyu arka plan */
-  color: #fff;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Açık arka plan */
+  color: #2c3e50;
   width: 100%;
 }
 
