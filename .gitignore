@@ -408,6 +408,7 @@ dataset/
 *.mkv
 src/YapayZeka/data/
 src/YapayZeka/dataset/
+models/
 *.pth
 *.pt
 
