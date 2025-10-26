@@ -21,4 +21,6 @@ app.listen(PORT, () => {
   console.log(`   POST   http://localhost:${PORT}/api/tests`);
   console.log(`   PUT    http://localhost:${PORT}/api/tests/:id`);
   console.log(`   DELETE http://localhost:${PORT}/api/tests/:id`);
+  console.log(`\n🎲 Random Video:`);
+  console.log(`   GET    http://localhost:${PORT}/api/video-library/random-video`);
 });

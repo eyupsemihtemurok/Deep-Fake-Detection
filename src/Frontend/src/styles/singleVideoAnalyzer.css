@@ -181,6 +181,18 @@
   cursor: not-allowed;
 }
 
+.quick-select-btn.random-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  border-color: #667eea;
+  font-weight: 600;
+}
+
+.quick-select-btn.random-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
 /* ============================================= */
 /* ERROR MESSAGE                               */
 /* ============================================= */

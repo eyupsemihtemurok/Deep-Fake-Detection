@@ -17,6 +17,18 @@ router.get('/', VideoLibraryController.getAll);
 
 /**
  * @swagger
+ * /api/video-library/random-video:
+ *   get:
+ *     summary: Random bir video seç ve URL'sini döndür
+ *     tags: [Video Library]
+ *     responses:
+ *       200:
+ *         description: Random video seçildi
+ */
+router.get('/random-video', VideoLibraryController.getRandomVideo);
+
+/**
+ * @swagger
  * /api/video-library/{id}:
  *   get:
  *     summary: ID ile video getir

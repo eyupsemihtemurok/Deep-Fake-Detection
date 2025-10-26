@@ -6,11 +6,14 @@ const SingleVideoAnalyzer = () => {
   const [analyzing, setAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState('');
+  const [loadingRandom, setLoadingRandom] = useState(false);
 
   // Hızlı test için örnek URL'ler
   const sampleUrls = [
     { label: '🔴 Deepfake Örneği', url: '/videos/fake/11_21__podium_speech_happy__T7DK03O1.mp4' },
-    { label: '🟢 Orjinal Örneği', url: '/videos/real/01__walking_down_indoor_hall_disgust.mp4' }
+    { label: '🟢 Orjinal Örneği', url: '/videos/real/01__walking_down_indoor_hall_disgust.mp4' },
+    { label: '🔴 Deepfake', url: '/videos/fake/deepfake.mp4' },
+    { label: '🟢 Orjinal', url: '/videos/real/orj.mp4' }
   ];
 
   const handleAnalyze = async () => {
@@ -57,6 +60,28 @@ const SingleVideoAnalyzer = () => {
     setVideoUrl('');
     setAnalysisResult(null);
     setError('');
+  };
+
+  const handleRandomVideo = async () => {
+    setLoadingRandom(true);
+    setError('');
+    setAnalysisResult(null);
+
+    try {
+      const response = await fetch('http://localhost:3000/api/video-library/random-video');
+      const data = await response.json();
+
+      if (data.success) {
+        setVideoUrl(data.data.url);
+      } else {
+        setError(data.error || 'Random video seçilemedi');
+      }
+    } catch (error) {
+      console.error('Random video hatası:', error);
+      setError('❌ Random video seçilirken hata oluştu: ' + error.message);
+    } finally {
+      setLoadingRandom(false);
+    }
   };
 
   const getStatusColor = () => {
@@ -141,11 +166,18 @@ const SingleVideoAnalyzer = () => {
               key={index}
               className="quick-select-btn"
               onClick={() => handleQuickSelect(sample.url)}
-              disabled={analyzing}
+              disabled={analyzing || loadingRandom}
             >
               {sample.label}
             </button>
           ))}
+          <button
+            className="quick-select-btn random-btn"
+            onClick={handleRandomVideo}
+            disabled={analyzing || loadingRandom}
+          >
+            {loadingRandom ? '🔄 Yükleniyor...' : '🎲 Random Video'}
+          </button>
         </div>
 
         {/* Error Message */}
@@ -265,12 +297,14 @@ const SingleVideoAnalyzer = () => {
         <ol>
           <li>Yukarıdaki input alanına video URL'sini girin</li>
           <li>Veya "Hızlı Test" butonlarından birini seçin</li>
+          <li>Ya da "🎲 Random Video" butonuna tıklayarak rastgele bir video seçin</li>
           <li>"Analiz Et" butonuna tıklayın</li>
           <li>Sonuçları görüntüleyin</li>
         </ol>
         <p className="info-note">
           <strong>Not:</strong> URL formatı <code>/videos/fake/dosya_adi.mp4</code> veya 
-          <code>/videos/real/dosya_adi.mp4</code> şeklinde olmalıdır.
+          <code>/videos/real/dosya_adi.mp4</code> şeklinde olmalıdır. Random video butonu 
+          dataset klasöründen otomatik olarak bir video seçer.
         </p>
       </div>
     </div>

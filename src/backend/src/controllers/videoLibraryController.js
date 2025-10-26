@@ -3,6 +3,7 @@ import VideoLibraryModel from '../models/videoLibraryModel.js';
 import { spawn } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -276,6 +277,68 @@ class VideoLibraryController {
       res.status(500).json({
         success: false,
         error: 'Video analiz edilirken hata oluştu',
+        message: error.message
+      });
+    }
+  }
+
+  // Random video seç ve URL'sini döndür - GET /api/video-library/random-video
+  static async getRandomVideo(req, res) {
+    try {
+      const datasetPath = path.join(__dirname, '..', '..', '..', 'YapayZeka', 'dataset');
+      const fakeVideosPath = path.join(datasetPath, 'DFD_manipulated_sequences', 'DFD_manipulated_sequences');
+      const realVideosPath = path.join(datasetPath, 'DFD_original sequences');
+
+      const allVideos = [];
+
+      // Fake videoları listele
+      if (fs.existsSync(fakeVideosPath)) {
+        const fakeFiles = fs.readdirSync(fakeVideosPath)
+          .filter(file => file.endsWith('.mp4') || file.endsWith('.avi') || file.endsWith('.mov'));
+        
+        fakeFiles.forEach(file => {
+          allVideos.push({
+            url: `/videos/fake/${file}`,
+            type: 'fake',
+            filename: file
+          });
+        });
+      }
+
+      // Real videoları listele
+      if (fs.existsSync(realVideosPath)) {
+        const realFiles = fs.readdirSync(realVideosPath)
+          .filter(file => file.endsWith('.mp4') || file.endsWith('.avi') || file.endsWith('.mov'));
+        
+        realFiles.forEach(file => {
+          allVideos.push({
+            url: `/videos/real/${file}`,
+            type: 'real',
+            filename: file
+          });
+        });
+      }
+
+      if (allVideos.length === 0) {
+        return res.status(404).json({
+          success: false,
+          error: 'Hiç video bulunamadı'
+        });
+      }
+
+      // Random video seç
+      const randomIndex = Math.floor(Math.random() * allVideos.length);
+      const selectedVideo = allVideos[randomIndex];
+
+      res.json({
+        success: true,
+        data: selectedVideo
+      });
+    } catch (error) {
+      console.error('❌ Random video seçme hatası:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Random video seçilirken hata oluştu',
         message: error.message
       });
     }
